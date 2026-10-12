@@ -1,0 +1,171 @@
+<div class="app-layout">
+  <!-- Cabeçalho Principal -->
+  <app-header (openAuthor)="showAuthorModal.set(true)"></app-header>
+
+  <main class="main-content">
+    <!-- Faixas de Cores Principais (Strip Hero) -->
+    <app-palette-strip></app-palette-strip>
+
+    <!-- Barra de Controles Rápidos, Quantidade, Harmonias e Variações -->
+    <app-variations-bar></app-variations-bar>
+
+    <!-- Barra de Navegação de Funcionalidades Estendidas -->
+    <div class="sections-nav-wrapper">
+      <nav class="sections-nav">
+        <button
+          type="button"
+          class="nav-tab-btn"
+          [class.active]="activeSection() === 'personality'"
+          (click)="setSection('personality')"
+        >
+          <span class="tab-icon">🎛️</span>
+          <span>Personalidade & Daltonismo</span>
+        </button>
+
+        <button
+          type="button"
+          class="nav-tab-btn"
+          [class.active]="activeSection() === 'extract'"
+          (click)="setSection('extract')"
+        >
+          <span class="tab-icon">📷</span>
+          <span>Extrair de Foto</span>
+        </button>
+
+        <button
+          type="button"
+          class="nav-tab-btn"
+          [class.active]="activeSection() === 'prompt'"
+          (click)="setSection('prompt')"
+        >
+          <span class="tab-icon">💡</span>
+          <span>Por Descrição</span>
+        </button>
+
+        <button
+          type="button"
+          class="nav-tab-btn"
+          [class.active]="activeSection() === 'mockups'"
+          (click)="setSection('mockups')"
+        >
+          <span class="tab-icon">🖥️</span>
+          <span>Pré-visualização Real</span>
+        </button>
+
+        <button
+          type="button"
+          class="nav-tab-btn"
+          [class.active]="activeSection() === 'tools'"
+          (click)="setSection('tools')"
+        >
+          <span class="tab-icon">🧰</span>
+          <span>Ferramentas Dev & CSS</span>
+        </button>
+
+        <button
+          type="button"
+          class="nav-tab-btn"
+          [class.active]="activeSection() === 'themes'"
+          (click)="setSection('themes')"
+        >
+          <span class="tab-icon">🍂</span>
+          <span>Estéticas & Desafio</span>
+        </button>
+
+        <button
+          type="button"
+          class="nav-tab-btn"
+          [class.active]="activeSection() === 'library'"
+          (click)="setSection('library')"
+        >
+          <span class="tab-icon">💾</span>
+          <span>Favoritos & Histórico</span>
+        </button>
+      </nav>
+    </div>
+
+    <!-- Área de Conteúdo da Seção Ativa -->
+    <div class="section-container">
+      @if (activeSection() === 'personality') {
+        <app-personality-controls class="animate-fade-in"></app-personality-controls>
+      }
+      @if (activeSection() === 'extract') {
+        <app-image-extractor class="animate-fade-in"></app-image-extractor>
+      }
+      @if (activeSection() === 'prompt') {
+        <app-prompt-generator class="animate-fade-in"></app-prompt-generator>
+      }
+      @if (activeSection() === 'mockups') {
+        <app-mockups-preview class="animate-fade-in"></app-mockups-preview>
+      }
+      @if (activeSection() === 'tools') {
+        <app-pro-tools class="animate-fade-in"></app-pro-tools>
+      }
+      @if (activeSection() === 'themes') {
+        <app-themes-and-challenges class="animate-fade-in"></app-themes-and-challenges>
+      }
+      @if (activeSection() === 'library') {
+        <app-favorites-history class="animate-fade-in"></app-favorites-history>
+      }
+    </div>
+  </main>
+
+  <!-- Rodapé Cozy com Informações de Paulo Sarmanho -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      <div class="footer-left">
+        <div class="footer-brand">
+          <span class="footer-logo">🎨</span>
+          <strong>Cromática</strong>
+          <span class="footer-sub">Gerador de Paletas Cozy</span>
+        </div>
+        <p class="footer-copy">
+          Criado com foco em acessibilidade visual, teoria das cores e harmonia perceptual.
+        </p>
+      </div>
+
+      <div class="footer-author-box">
+        <div class="author-summary">
+          <span class="author-tag">Desenvolvido por</span>
+          <strong class="author-lead-name">Paulo Sarmanho</strong>
+        </div>
+        <div class="footer-links-row">
+          <a href="https://www.linkedin.com/in/paulo-sarmanho/" target="_blank" rel="noopener noreferrer" class="foot-link">
+            💼 LinkedIn
+          </a>
+          <a href="https://github.com/PauloSarmanhoDev" target="_blank" rel="noopener noreferrer" class="foot-link">
+            🐙 GitHub
+          </a>
+          <a href="https://paulo-sarmanho-dev.netlify.app/" target="_blank" rel="noopener noreferrer" class="foot-link">
+            🌐 Portfólio
+          </a>
+          <a href="mailto:paulodetarso99@live.com" class="foot-link">
+            ✉️ Contato
+          </a>
+        </div>
+        <button class="footer-pix-btn" (click)="showAuthorModal.set(true)">
+          ☕ Apoiar via PIX
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modais -->
+  @if (showAuthorModal()) {
+    <app-author-modal (close)="showAuthorModal.set(false)"></app-author-modal>
+  }
+
+  @if (paletteService.activeColorIndex() !== null) {
+    <app-color-edit-modal></app-color-edit-modal>
+  }
+
+  <!-- Toast de Notificação -->
+  @if (paletteService.toast(); as t) {
+    <div class="toast-container">
+      <div class="toast-box" [class.info]="t.type === 'info'">
+        <span>{{ t.type === 'success' ? '✨' : 'ℹ️' }}</span>
+        <span>{{ t.message }}</span>
+      </div>
+    </div>
+  }
+</div>
