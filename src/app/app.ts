@@ -13,6 +13,8 @@ import { ThemesAndChallengesComponent } from './components/themes-and-challenges
 import { FavoritesHistoryComponent } from './components/favorites-history/favorites-history.component';
 import { AuthorModalComponent } from './components/author-modal/author-modal.component';
 import { ColorEditModalComponent } from './components/color-edit-modal/color-edit-modal.component';
+import { PwaInstallModalComponent } from './components/pwa-install-modal/pwa-install-modal.component';
+import { PwaService } from './services/pwa.service';
 
 export type MainSectionTab =
   | 'personality'
@@ -39,13 +41,15 @@ export type MainSectionTab =
     ThemesAndChallengesComponent,
     FavoritesHistoryComponent,
     AuthorModalComponent,
-    ColorEditModalComponent
+    ColorEditModalComponent,
+    PwaInstallModalComponent
   ],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
   readonly paletteService = inject(PaletteService);
+  readonly pwaService = inject(PwaService);
 
   // Aba principal de funcionalidades estendidas
   readonly activeSection = signal<MainSectionTab>('personality');

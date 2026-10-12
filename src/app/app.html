@@ -159,6 +159,10 @@
     <app-color-edit-modal></app-color-edit-modal>
   }
 
+  @if (pwaService.showInstructionsModal()) {
+    <app-pwa-install-modal></app-pwa-install-modal>
+  }
+
   <!-- Toast de Notificação -->
   @if (paletteService.toast(); as t) {
     <div class="toast-container">

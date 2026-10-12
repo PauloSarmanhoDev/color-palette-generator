@@ -137,8 +137,17 @@ import { HarmonyType } from '../../models/color.models';
     .controls-left, .controls-right {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      justify-content: center;
+      gap: 0.75rem;
       flex-wrap: wrap;
+      width: 100%;
+    }
+
+    @media (min-width: 1024px) {
+      .controls-left, .controls-right {
+        width: auto;
+        justify-content: flex-start;
+      }
     }
 
     .control-group {
